@@ -7,7 +7,7 @@ close all;
 image = imread("C:\Lokesh\Minor 2_Nvidia\Very_low_Exposure_Image\Pictures\istockphoto-611295844-612x612.jpg");
 
 % Set the desired average quanta per pixel
-desired_quanta_per_pixel = 1;
+desired_quanta_per_pixel = 0.01;
 
 % Calculate the total number of pixels
 total_pixels = size(image, 1) * size(image, 2);

@@ -4,10 +4,10 @@ clear all;
 close all;
 
 % Read the .jpeg image
-image = imread("C:\Lokesh\Minor 2_Nvidia\Very_low_Exposure_Image\Pictures\istockphoto-611295844-612x612.jpg");
+image = imread("C:\Users\hp\OneDrive\Desktop\output_gray_image.jpg");
 
 % Simulate low light exposure
-number_of_quanta = 2000000;
+number_of_quanta = 1099900;
 tic;%start timer
 % Parameters
 array_size = max(size(image)); % Assuming square image for simplicity

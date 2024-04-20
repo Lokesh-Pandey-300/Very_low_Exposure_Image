@@ -5,7 +5,7 @@ clear all;
 close all;
 
 % Read the .jpeg image
-image = imread("C:\Users\hp\OneDrive\Desktop\istockphoto-611295844-612x612.jpg");
+image = imread("C:\Users\hp\OneDrive\Desktop\output_gray_image.jpg");
 
 % Convert the image to grayscale
 grayscale_image = rgb2gray(image);
