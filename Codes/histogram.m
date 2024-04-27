@@ -1,5 +1,5 @@
 % Read the image
-image = imread("C:\Users\hp\OneDrive\Desktop\untitled2.png"); % Replace 'your_image.jpg' with the path to your image file
+image = imread("C:\Lokesh\KDC\PLEIADES\IMG_0181.JPG"); % Replace 'your_image.jpg' with the path to your image file
 
 % Convert the image to grayscale if it's a color image
 if size(image, 3) == 3

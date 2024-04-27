@@ -10,7 +10,7 @@ array_size = 64; % This will be updated based on the image size
 number_of_quanta = 2000000;
 
 % Read the .jpeg image
-original_image = imread("C:\Users\aryan\Documents\MINOR proj 2\image (1).jpg");
+original_image = imread("C:\Users\hp\OneDrive\Desktop\output_gray_image.jpg");
 
 % Normalize the image
 if size(original_image, 3) == 3
