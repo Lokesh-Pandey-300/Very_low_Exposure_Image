@@ -1,29 +1,27 @@
 % Example usage
-clc; 
+clc;
 clear all;
 close all;
 
-% Load YOLOv8 model
-modelName = 'yolov8m';
-model = helper.downloadPretrainedYOLOv8(modelName);
+% Load YOLOv8 model (assuming yolov8m.mat is in the same directory)
+modelName = 'yolov8n.mat'; % Correct the file extension
+model = load(modelName, 'yolov8Net');
 net = model.yolov8Net;
 
 
+
 % Read the .jpeg image
-image = imread("C:\Users\hp\OneDrive\Desktop\output_gray_image.jpg");
+image = imread("C:\Lokesh\Minor 2_Nvidia\Very_low_Exposure_Image\Pictures\istockphoto-611295844-612x612.jpg");
 
 % Simulate low light exposure
 number_of_quanta = 1099900;
-tic;%start timer
+tic; % Start timer
+
 % Parameters
 array_size = max(size(image)); % Assuming square image for simplicity
 
 % Normalize the image
-if size(image, 3) == 3
-    normalized_image = double(image) / 255;
-else
-    normalized_image = double(image) / 255;
-end
+normalized_image = double(image) / 255;
 
 % Initialize the low light image
 ll = zeros(size(normalized_image));
@@ -57,8 +55,8 @@ else
     ll(idx) = ll(idx) + 1;
 end
 
-toc;%end timer
-   
+toc; % End timer
+
 % Display the results
 figure;
 subplot(1, 2, 1);
@@ -66,13 +64,10 @@ imshow(image, []);
 title('Original Image');
 subplot(1, 2, 2);
 imshow(ll, []);
-title('Simulated Low Exposure Image');
+title('Simulated Low Exposure Image');
 
-I = imread('Simulated Low Exposure Image');
 % Detect objects in the image
-[classIDs, scores, boxes] = detectYOLOv8(net, I);
+[classIDs, scores, boxes] = detectYOLOv8(net, ll);
 
 % Display the results (you can customize this part)
-displayResults(I, classIDs, scores, boxes);
-
-
+displayResults(ll, classIDs, scores, boxes);
