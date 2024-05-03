@@ -1,23 +1,30 @@
 
-clear all
-% Load YOLOv8 model (assuming yolov8n.mat is in the same directory)
-model = load('yolov8n.mat', 'yolov8Net');
-net = model.yolov8Net;
+% Ensure Python is installed and properly configured with MATLAB
+if count(py.sys.path,'') == 0
+    insert(py.sys.path,int32(0),'');
+end
 
-% Read the input image
-image = imread("C:\Lokesh\Minor 2_Nvidia\Very_low_Exposure_Image\Pictures\istockphoto-611295844-612x612.jpg");
+% Import necessary Python modules
+py.importlib.import_module('cv2');
+py.importlib.import_module('numpy');
 
-% Resize image to match input size of the network (if necessary)
-inputSize = net.Layers(1).InputSize(1:2);
-imageResized = imresize(image, inputSize);
+% Load YOLO
+net = py.cv2.dnn.readNet("C:\Users\hp\yolov3.weights","C:\Users\hp\yolov3.cfg");
 
-% Normalize image
-imageNormalized = double(imageResized) / 255;
+% Load image
+img = py.cv2.imread("C:\Lokesh\Minor 2_Nvidia\Very_low_Exposure_Image\Pictures\istockphoto-611295844-612x612.jpg");
+img = py.cv2.resize(img, (320, 320));
 
-% Detect objects in the image
-[classIDs, scores, boxes] = detectYOLOv8(net, imageNormalized);
+% Detect objects
+blob = py.cv2.dnn.blobFromImage(img, 0.00392, (320, 320), (0, 0, 0), True, crop=False);
+net.setInput(blob);
+outs = net.forward(get_output_layers(net));
 
-% Display the detected objects
-detectedImage = insertObjectAnnotation(imageResized, 'rectangle', boxes, cellstr(classIDs), 'LineWidth', 3);
-imshow(detectedImage);
-title('Detected Objects');
+% Display detected objects
+for out in outs:
+    for detection in out:
+        scores = detection[5:]
+        class_id = np.argmax(scores)
+        confidence = scores[class_id]
+        if confidence > 0.5:
+            print('Object detected')
